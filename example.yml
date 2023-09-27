@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  website:
+    build: .
+    expose:
+      - "5001"
+    networks:
+      - auth_network
+
+  authenticator_proxy:
+    image: authenticator_proxy
+    container_name: website_authenticator
+    environment:
+      AUTH_USER: ${AUTH_USER}
+      AUTH_PASSWORD: ${AUTH_PASSWORD}
+      PUBLIC_PORT: 5000
+      PRIVATE_PORT: 5001
+    ports:
+      - "80:5000"
+    networks:
+      - auth_network
+
+networks:
+  auth_network:

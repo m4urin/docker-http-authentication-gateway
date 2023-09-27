@@ -1,0 +1,17 @@
+host: 0.0.0.0
+port: ${AUTH_PORT}
+log_level: info
+
+authentication_backend:
+  file:
+    path: /etc/authelia/users_database.yml
+    password:
+      algorithm: sha512
+
+users:
+  ${AUTH_USER}:
+    password: ${AUTH_PASSWORD}
+    displayname: ${AUTH_USER}
+    email: ${AUTH_USER}@example.com
+    groups:
+    - admin
